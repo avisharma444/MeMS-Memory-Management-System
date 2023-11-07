@@ -237,7 +237,6 @@ void* mems_malloc(size_t size)
                         sub_node->vae = sub_node->vas + sub_node->size-1;
                         mem_curr += size;
 
-                        // Check if there's space left for a new hole
                         if (initial_hole - size >0) {
                             
                             struct SubChainNode* new_hole = structs_curr;
