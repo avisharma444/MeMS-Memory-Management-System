@@ -1,4 +1,25 @@
-# README.md
+# # MeMS (Memory Management System)
+
+## Introduction
+
+MeMS is a custom memory management system implemented in C, utilizing system calls `mmap` and `munmap` for memory allocation and deallocation respectively. This project aims to manage heap memory efficiently while adhering to strict constraints and requirements.
+
+## Problem Statement
+
+Implement a memory management system (MeMS) using only `mmap` and `munmap` system calls. The project must meet the following criteria:
+
+- Use `mmap` to request memory from the OS in multiples of the system's `PAGE_SIZE`.
+- Manage memory allocation and deallocation through a custom free list structure.
+- Provide functions for memory allocation (`mems_malloc`) and deallocation (`mems_free`) which should be used exclusively by the user program.
+
+## Constraints and Requirements
+
+1. **System Calls**: MeMS should only use `mmap` and `munmap` for memory management.
+2. **PAGE_SIZE**: Memory should be requested in multiples of the system's `PAGE_SIZE`.
+3. **Free List**: Maintain a doubly linked list structure (`main chain` and `sub-chain`) to manage allocated (`PROCESS`) and unallocated (`HOLE`) memory segments.
+4. **Virtual and Physical Address Mapping**: Manage a mapping from MeMS virtual addresses to MeMS physical addresses.
+5. **User Program Interaction**: Users interact with MeMS using MeMS virtual addresses, which are translated to MeMS physical addresses for memory operations.
+
 
 ## Implementation Details
 
@@ -174,5 +195,3 @@
 - Sub-chain Length array: [3, 2, 2, 1, 2, 2, 2, 2, 2, 2]
 
 ##### Unmapping all memory [mems_finish]
-
-# Memory Allocation and Management
