@@ -93,6 +93,9 @@ The main features of the chain (sub-chain) are:
 
 2. After the `make` command is run, a few warnings might occur. However, these warnings are not related to the functioning of the `mems` system and are just recommendations. The demonstration section verifies that the system works without adhering to these changes.
 
+##Credits 
+- credits to https://github.com/Rahul-Agrawal-09/MeMS-Skeleton-code/blob/main/mems.h , you can clone this repo and create your own implementation of MeMS from scratch.
+
 ## Demonstration:
 
 ### TEST CASE-1:
