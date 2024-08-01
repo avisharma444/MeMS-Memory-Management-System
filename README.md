@@ -12,6 +12,20 @@ Implement a memory management system (MeMS) using only `mmap` and `munmap` syste
 - Manage memory allocation and deallocation through a custom free list structure.
 - Provide functions for memory allocation (`mems_malloc`) and deallocation (`mems_free`) which should be used exclusively by the user program.
 
+## FreeList Structure
+- Free List is represented as a doubly linked list. Let's call this doubly linked list as the main chain of the free list. The main features of the main chain are:
+- Whenever MeMS requests memory from the OS (using mmap), it adds a new node to the main chain.
+- Each node of the main chain points to another doubly linked list which we call as sub-chain. This sub-chain can contain multiple nodes. Each node corresponds to a segment of memory within the range of the memory defined   by its main chain node. Some of these nodes (segments) in the sub-chain are mapped to the user program. We call such nodes (segments) as PROCESS nodes. Rest of the nodes in the sub-chain are not mapped to the user         program and are called as HOLES or HOLE nodes.
+- Whenever the user program requests for memory from MeMS, MeMS first tries to find a sufficiently large segment in any sub-chain of any node in the main chain. If a sufficiently large segment is found, MeMS uses it to      allocate memory to the user program and updates the segment’s type from HOLE to PROCESS. Else, MeMS requests the OS to allocate more memory on the heap (using mmap) and add a new node corresponding to it in the main       chain.
+  The structure of free list looks like below:
+
+
+The main features of the chain (sub-chain) are:
+- Each chain is broken into segments.
+- Each segment represents a part of memory and represents whether that segment is of type PROCESS i.e. is mapped to the user process or is of type HOLE i.e. not allocated/mapped to the user program.
+- The segments of type HOLE can be reallocated to any new requests by the user process. In this scenario, if some space remains after allocation then the remaining part becomes a new segment of type HOLE in that sub-chain.
+  Graphaphically it looks something like below:
+
 ## Constraints and Requirements
 
 1. **System Calls**: MeMS should only use `mmap` and `munmap` for memory management.
