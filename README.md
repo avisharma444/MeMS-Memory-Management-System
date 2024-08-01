@@ -18,13 +18,28 @@ Implement a memory management system (MeMS) using only `mmap` and `munmap` syste
 - Each node of the main chain points to another doubly linked list which we call as sub-chain. This sub-chain can contain multiple nodes. Each node corresponds to a segment of memory within the range of the memory defined   by its main chain node. Some of these nodes (segments) in the sub-chain are mapped to the user program. We call such nodes (segments) as PROCESS nodes. Rest of the nodes in the sub-chain are not mapped to the user         program and are called as HOLES or HOLE nodes.
 - Whenever the user program requests for memory from MeMS, MeMS first tries to find a sufficiently large segment in any sub-chain of any node in the main chain. If a sufficiently large segment is found, MeMS uses it to      allocate memory to the user program and updates the segment’s type from HOLE to PROCESS. Else, MeMS requests the OS to allocate more memory on the heap (using mmap) and add a new node corresponding to it in the main       chain.
   The structure of free list looks like below:
-
+<div >
+  <img src="unnamed-3.png">
+</div>
 
 The main features of the chain (sub-chain) are:
 - Each chain is broken into segments.
 - Each segment represents a part of memory and represents whether that segment is of type PROCESS i.e. is mapped to the user process or is of type HOLE i.e. not allocated/mapped to the user program.
 - The segments of type HOLE can be reallocated to any new requests by the user process. In this scenario, if some space remains after allocation then the remaining part becomes a new segment of type HOLE in that sub-chain.
   Graphaphically it looks something like below:
+<div >
+  <img src="unnamed-2.png">
+</div>
+
+
+**The program makes sure that while allocation and minimal fragmentation happens giving rise to such holes in memory.**
+
+## Memory Address Translation
+
+- Just like OS maintains a mapping from virtual address space to physical address space, MeMS maintains a mapping from MeMS virtual address space to MeMS physical address space. 
+- So, for every MeMS physical address (which is provided by mmap), we need to assign a MeMS virtual address. 
+- As you may understand, this MeMS virtual address has no meaning outside the MeMS system.
+- We can get the MeMS physical address (i.e. the actual address returned by mmap) corresponding to a MeMS virtual address by using the function mems_get function.
 
 ## Constraints and Requirements
 
