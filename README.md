@@ -41,6 +41,10 @@ The main features of the chain (sub-chain) are:
 - As you may understand, this MeMS virtual address has no meaning outside the MeMS system.
 - We can get the MeMS physical address (i.e. the actual address returned by mmap) corresponding to a MeMS virtual address by using the function mems_get function.
 
+<div >
+  <img src="unnamed-4.png">
+</div>
+
 ## Constraints and Requirements
 
 1. **System Calls**: MeMS should only use `mmap` and `munmap` for memory management.
